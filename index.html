@@ -1,0 +1,126 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+	<link rel="stylesheet" href="css/cs.css">
+    <link rel="stylesheet" href="css/cs_book.css">
+    <link rel="stylesheet" href="css/input_user.css">
+    <link rel="stylesheet" href="css/data_flow.css">
+    <link rel="icon" href="image_CKG/c2.png" type="png">
+<title>AAA建材王总</title>
+	<style>
+	
+	</style>
+</head>
+
+<body id="body">
+
+
+
+<div class="input_box">
+    <input type="text" class="user_input" />
+    <input type="button" class="button confirm" value="确认" />
+</div>
+
+
+<div class="data_flow">
+    <div class="particle-container" id="particleContainer"></div>
+</div>
+
+
+
+
+<div class="bookshelf">
+    <div>
+        <div class="zyk z"></div>
+        <div class="zyk y"></div>
+        <div class="zyy zy"></div>
+        <div class="zyy yy"></div>
+    </div>
+    <div class="title_book">
+        <h1 style="text-align: center;">
+            <span class="sp_1">入站</span>
+            <span class="sp_2">规则</span>
+        </h1></div>
+    <div class="line_b"></div>
+    <div class="box_uu">
+        <ul>
+            <li>最终解释权归本站所有</li>
+            <li>用户应遵守当地法律法规</li>
+            <li>用户自行承担使用本站的风险</li>
+            <li>不可抗力导致服务中断不承担责任</li>
+            <li>商业转载需获得书面授权</li>
+            <li>用户发布内容不代表本站立场</li>
+            <li>本站保留随时修改内容的权利</li>
+            <li>不承担直接或间接损失责任</li>
+            <li>本站仅供交流学习</li>
+            <li>使用本站即表示接受本声明</li>
+        </ul>
+    </div>
+    <div class="line_b_a"><div class="book_clock" id="bookClock">
+        <div class="book_clock_time">
+        <span id="clockHor">HH</span>
+        <span id="clockSpr">点</span>
+        <span id="clockMin">mm</span>
+        </div>
+        <div class="book_clock_time_sc">
+        <span id="clockSec">ss</span>
+        </div>
+    </div></div>
+    
+</div>
+
+
+
+    <div class="video-background_w">
+        <video autoplay muted loop id="bg-video_w">
+            <source src="image_CKG/【哲风壁纸】丁达尔-晨光.mp4" type="video/mp4">
+        </video>
+    </div>
+
+	<label class="toggle">
+	<input type="checkbox" onchange="kaishi()" class="toggle__input">
+	<div class="toggle__container">
+		<div class="toggle__clouds"></div>
+		<div class="toggle__stars">
+			
+<svg width="59.999999999999986" height="29.999999999999993" xmlns="http://www.w3.org/2000/svg">
+ <g>
+  <title>Layer 1</title>
+  <path id="svg_5" d="m13.79699,14.15357l0.52755,0l0.16302,-0.50117l0.16302,0.50117l0.52755,0l-0.4268,0.30974l0.16303,0.50117l-0.4268,-0.30975l-0.4268,0.30975l0.16303,-0.50117l-0.4268,-0.30974z"  fill="#fff"/>
+  <path id="svg_6" d="m27.31854,7.10508l0.9609,0l0.29693,-0.91285l0.29693,0.91285l0.9609,0l-0.77739,0.56417l0.29694,0.91285l-0.77739,-0.56418l-0.77739,0.56418l0.29694,-0.91285l-0.77739,-0.56417l0.00002,0z"  fill="#fff"/>
+  <path id="svg_7" d="m30.1161,20.82109l0.52755,0l0.16302,-0.50117l0.16302,0.50117l0.52755,0l-0.4268,0.30974l0.16303,0.50117l-0.4268,-0.30975l-0.4268,0.30975l0.16303,-0.50117l-0.4268,-0.30974z"  fill="#fff"/>
+  <path id="svg_8" d="m7.98179,5.55897l0.03752,0l0.01159,-0.03565l0.01159,0.03565l0.03752,0l-0.03036,0.02203l0.0116,0.03565l-0.03036,-0.02203l-0.03036,0.02203l0.0116,-0.03565l-0.03036,-0.02203z"  fill="#fff"/>
+ </g>
+
+</svg>
+
+		</div>
+		<div class="toggle__sun">
+			<div class="toggle__moon-mask">
+				<div class="boon b1"></div>
+				<div class="boon b2"></div>
+				<div class="boon b3"></div>
+			</div>
+		</div>
+	</div>
+	</label>
+
+<canvas id="space"></canvas>
+
+
+<script src="js/data_flow.js">
+</script>
+
+<script src="js/input_user.js">
+</script>
+<script src="js/js_clock.js">
+</script>
+<script src="js/js.js">    
+</script>
+
+
+
+
+</body>
+</html>
