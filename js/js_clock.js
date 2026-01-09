@@ -57,10 +57,10 @@ function minnumberToChinese(num) {
 }
 function inner(){
 var data = new Date;
-let hour_Chinese = ['壹',"貳","叁","肆","伍","陸","柒","捌","玖","拾","拾壹","拾貳",
-                    '壹',"貳","叁","肆","伍","陸","柒","捌","玖","拾","拾壹","拾貳"
+let hour_Chinese = ["零",'壹',"貳","叁","肆","伍","陸","柒","捌","玖","拾","拾壹","拾貳",
+                    "零",'壹',"貳","叁","肆","伍","陸","柒","捌","玖","拾","拾壹","拾貳"
 ];
-clockHor.innerText = hour_Chinese[parseInt(data.getHours())-1];
+clockHor.innerText = hour_Chinese[parseInt(data.getHours())];
 clockSec.innerText = data.getSeconds();
 clockMin.innerText = minnumberToChinese(data.getMinutes());
 }
