@@ -35,7 +35,7 @@
             width: 120px;
             height: 120px;
             margin: 0 auto 30px;
-            background: url('image_CKG/c2.png') no-repeat center;
+            background: url('html/image_CKG/c2.png') no-repeat center;
             background-size: contain;
         }
         
@@ -132,13 +132,13 @@
         <p class="subtitle">请选择您的访问方式</p>
         
         <div class="device-selector">
-            <a href="__y.html" class="device-card" id="mobile-card">
+            <a href="html/__y.html" class="device-card" id="mobile-card">
                 <div class="device-icon mobile-icon">📱</div>
                 <h3>移动端访问</h3>
                 <p>为手机和平板设备优化，触控友好，自适应屏幕大小</p>
             </a>
             
-            <a href="__k.html" class="device-card" id="desktop-card">
+            <a href="html/__k.html" class="device-card" id="desktop-card">
                 <div class="device-icon desktop-icon">💻</div>
                 <h3>客户端访问</h3>
                 <p>为桌面设备优化，包含完整特效和交互功能</p>
@@ -184,9 +184,9 @@
                 if (countdown <= 0) {
                     clearInterval(countdownInterval);
                     if (deviceType === 'mobile') {
-                        window.location.href = '__y.html';
+                        window.location.href = 'html/__y.html';
                     } else {
-                        window.location.href = '__k.html';
+                        window.location.href = 'html/__k.html';
                     }
                 }
             }, 1000);
@@ -195,12 +195,12 @@
         // 立即跳转（如果用户手动选择）
         document.getElementById('mobile-card').addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = '__y.html';
+            window.location.href = 'html/__y.html';
         });
         
         document.getElementById('desktop-card').addEventListener('click', function(e) {
             e.preventDefault();
-            window.location.href = '__k.html';
+            window.location.href = 'html/__k.html';
         });
         
         // 页面加载后开始倒计时

@@ -1,0 +1,99 @@
+#body:has(.toggle__input:checked) .input_box{
+    opacity: 0;
+    z-index: -1;
+}
+
+.input_box{
+    --input_box-width:250px;
+    --input_box-height:30px;
+    --user_input-width:200px;
+    --user_input-height:20px;
+    --button-height:20px;
+    --button-width:40px;
+
+
+
+
+
+
+    
+    transition: 0.5s;
+    opacity: 1;
+    height: var(--input_box-height);
+    width: var(--input_box-width);
+    position: absolute;
+    left: calc(100vh - var(--input_box-width) / 2);
+    top: 108px;
+}
+
+@keyframes colorChange {
+    from{
+        color: #7ce79c;
+    }
+    10%{
+        color:  #e0e77c;
+    }
+    20%{
+        color:  #e7a77c;
+    }
+    30%{
+        color:  #e77c7c;
+    }
+    40%{
+        color:  #e77cc3;
+    }
+    50%{
+        color:  #b37ce7;
+    }
+    60%{
+        color:  #837ce7;
+    }
+    70%{
+        color:  #7ccee7;
+    }
+    80%{
+        color:  #7ce0e7;
+    }
+    90%{
+        color:  #7ce7c3;
+    }
+    to{
+        color:  #7ce79c;
+    }
+}
+
+.input_box .user_input{
+    width: var(--user_input-width);
+    height: var(--user_input-height);
+    position: absolute;
+    background: none;
+    top: calc((var(--input_box-height) - var(--user_input-height))/2);
+    animation: colorChange 3s linear infinite;
+}
+
+.input_box .button{
+    width: var(--button-width);
+    height: var(--button-height);
+    font-size: 10px;
+    position: absolute;
+    top: calc((var(--input_box-height) - var(--user_input-height))/2);
+    left: calc(var(--user_input-width) +
+        ((var(--input_box-width) - 
+    var(--user_input-width) - 
+    var(--button-width)
+        ) / 2)
+    );
+    background: none;
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+

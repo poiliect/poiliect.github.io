@@ -1,0 +1,671 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/cs.css">
+    <link rel="stylesheet" href="css/cs_book.css">
+    <link rel="stylesheet" href="css/input_user.css">
+    <link rel="stylesheet" href="css/data_flow.css">
+    <!-- 移动端专用样式 -->
+    <style>
+        /* 移动端基础样式 */
+        * {
+            box-sizing: border-box;
+            touch-action: manipulation;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: none;
+            transition: 0.5s;
+        }
+        
+        /* 固定左上角的主题切换按钮 */
+        .theme-toggle-fixed {
+            position: fixed;
+            top: 2px;
+            left: 2px;
+            z-index: 9999;
+            opacity: 1 !important;
+            visibility: visible !important;
+            display: block !important;
+        }
+        
+        .theme-toggle-fixed input[type="checkbox"] {
+            display: none;
+        }
+        
+        .theme-switch-fixed {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.3); /* 白色半透明 */
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            color: #333;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+        
+        .theme-switch-fixed i {
+            font-style: normal;
+            font-size: 18px;
+        }
+        
+        /* 夜间模式样式 */
+        body.night-mode .mobile-header,
+        body.night-mode .mobile-main,
+        body.night-mode .mobile-footer,
+        body.night-mode #bg-video_w,
+        body.night-mode #particleContainer {
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+        
+        /* 确保主题按钮在夜间模式下仍然可见 */
+        body.night-mode .theme-toggle-fixed {
+            opacity: 1 !important;
+            visibility: visible !important;
+        }
+        
+        /* 移动端头部 */
+        .mobile-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: opacity 0.5s;
+        }
+        
+        .mobile-title h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        
+        .mobile-time {
+            font-size: 0.9rem;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        /* 主内容区 */
+        .mobile-main {
+            margin-top: 60px;
+            height: calc(100vh - 180px);
+            padding: 15px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+        
+        /* 输入区域 */
+        .input-container {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .mobile-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            color: #333;
+        }
+        
+        .mobile-input:focus {
+            border-color: rgba(102, 126, 234, 0.7);
+        }
+        
+        .mobile-input::placeholder {
+            color: rgba(51, 51, 51, 0.7);
+        }
+        
+        .send-btn {
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            color: #333;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .send-btn:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        /* 规则区域 */
+        .rules-container {
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .rules-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                rgba(124, 231, 156, 0.7), 
+                rgba(224, 231, 124, 0.7), 
+                rgba(231, 167, 124, 0.7), 
+                rgba(231, 124, 124, 0.7),
+                rgba(231, 124, 195, 0.7), 
+                rgba(179, 124, 231, 0.7), 
+                rgba(131, 124, 231, 0.7), 
+                rgba(124, 206, 231, 0.7),
+                rgba(124, 224, 231, 0.7), 
+                rgba(124, 231, 195, 0.7), 
+                rgba(124, 231, 156, 0.7));
+            background-size: 1000% 100%;
+            animation: gradientFlow 3s linear infinite;
+        }
+        
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        
+        .rules-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .rules-header h2 {
+            margin: 0;
+            font-size: 1.3rem;
+            color: #333;
+        }
+        
+        .rules-time {
+            font-size: 1rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .rules-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .rules-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            color: #333;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .rules-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .rules-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+        
+        /* 底部操作栏 */
+        .mobile-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: rgba(255,255,255,0.3);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            transition: opacity 0.5s;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .control-btn:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .control-btn i {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .control-btn span {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        /* 粒子容器 */
+        #particleContainer {
+            position: fixed;
+            top: -20px;
+            left: 0;
+            right: 0;
+            bottom: 120px;
+            pointer-events: none;
+            z-index: -1;
+            transition: opacity 0.5s;
+        }
+        
+        /* 视频容器 */
+        #bg-video_w {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+        
+        /* 吐司提示 */
+        .toast {
+            position: fixed;
+            bottom: 140px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 14px;
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 480px) {
+            .mobile-header {
+                height: 50px;
+                padding: 0 10px;
+            }
+            
+            .mobile-main {
+                margin-top: 50px;
+                height: calc(100vh - 160px);
+                padding: 10px;
+            }
+            
+            .mobile-footer {
+                height: 110px;
+                padding: 10px;
+            }
+            
+            .control-btn span {
+                font-size: 10px;
+            }
+            
+            .theme-switch-fixed {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+    </style>
+    <link rel="icon" href="image_CKG/c2.png" type="png">
+<title>AAA建材王总 - 移动端</title>
+</head>
+
+<body id="body">
+
+<!-- 固定在左上角的主题切换按钮 -->
+<div class="theme-toggle-fixed">
+    <label>
+        <input type="checkbox" id="themeToggle">
+        <div class="theme-switch-fixed">
+            <i id="themeIcon">☀️</i>
+            <span id="themeLabel">日间模式</span>
+        </div>
+    </label>
+</div>
+<!-- 主内容 -->
+<main class="mobile-main">
+    <!-- 输入框 -->
+    <div class="input-container">
+        <input type="text" class="mobile-input" placeholder="输入内容..." id="mobileInput">
+        <button class="send-btn" id="sendBtn">发送</button>
+    </div>
+    
+    <!-- 规则列表 -->
+    <div class="rules-container">
+        <div class="rules-header">
+            <h2>📚 入站规则</h2>
+            <div class="rules-time" id="clockTime"></div>
+        </div>
+        <ul class="rules-list">
+            <li>最终解释权归本站所有</li>
+            <li>用户应遵守当地法律法规</li>
+            <li>用户自行承担使用本站的风险</li>
+            <li>不可抗力导致服务中断不承担责任</li>
+            <li>商业转载需获得书面授权</li>
+            <li>用户发布内容不代表本站立场</li>
+            <li>本站保留随时修改内容的权利</li>
+            <li>不承担直接或间接损失责任</li>
+            <li>本站仅供交流学习</li>
+            <li>使用本站即表示接受本声明</li>
+        </ul>
+    </div>
+    
+    <!-- 粒子容器 -->
+    <div id="particleContainer" class="particle-container"></div>
+    
+    <!-- 视频背景 -->
+    <div class="video-background_w">
+        <video autoplay muted loop id="bg-video_w">
+            <source src="image_CKG/Wavy Grass 4K60FPS.mp4" type="video/mp4">
+        </video>
+    </div>
+</main>
+
+<!-- 底部操作栏 -->
+<footer class="mobile-footer">
+    <div class="controls">
+        <button class="control-btn" id="clearBtn">
+            <i>🗑️</i>
+            <span>清空</span>
+        </button>
+        <!-- 移除了"我爱你"按钮 -->
+        <button class="control-btn" id="resetBtn">
+            <i>🔄</i>
+            <span>重置</span>
+        </button>
+    </div>
+</footer>
+
+<!-- 星空画布 -->
+<canvas id="space" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -3;"></canvas>
+
+
+<script src="js/data_flow.js"></script>
+<script src="js/input_user.js"></script>
+<script src="js/js_clock.js"></script>
+<script src="js/js.js"></script>
+
+<script>
+// 移动端初始化脚本
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('移动端页面已加载');
+    
+    // 初始化粒子系统
+    window.particleSystem = new ParticleSystem();
+    
+    // 获取元素
+    const mobileInput = document.getElementById('mobileInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const themeToggle = document.getElementById('themeToggle');
+    const themeLabel = document.getElementById('themeLabel');
+    const video = document.getElementById('bg-video_w');
+    const body = document.getElementById('body');
+    
+    // 发送功能
+    sendBtn.addEventListener('click', function() {
+        const text = mobileInput.value.trim();
+        if (text) {
+            particleSystem.addUserInput(text);
+            mobileInput.value = '';
+            showToast('已发送: ' + text);
+            mobileInput.focus();
+        }
+    });
+    
+    // 回车发送
+    mobileInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            sendBtn.click();
+        }
+    });
+    
+    // 清空按钮
+    clearBtn.addEventListener('click', function() {
+        particleSystem.clearUserInputs();
+        showToast('已清空输入队列');
+    });
+    
+    // 我爱你按钮
+    // 重置按钮
+    resetBtn.addEventListener('click', function() {
+        particleSystem.addUserInput("|");
+        showToast('已重置粒子效果');
+    });
+    
+    // 主题切换
+    themeToggle.addEventListener('change', function() {
+        if (this.checked) {
+            // 夜间模式
+            body.classList.add('night-mode');
+            body.style.backgroundColor = '#000';
+            if (video) video.style.opacity = '0';
+            themeLabel.textContent = '夜间模式';
+            showToast('已切换至夜间模式');
+
+            
+            // 启动星空动画
+            if (typeof window.kaishi === 'function' && !window.animationRunning) {
+                window.kaishi();
+            }
+        } else {
+            // 日间模式
+            body.classList.remove('night-mode');
+            body.style.backgroundColor = '';
+            if (video) video.style.opacity = '1';
+            themeLabel.textContent = '日间模式';
+            showToast('已切换至日间模式');
+            
+            // 停止星空动画
+            if (typeof window.kaishi === 'function' && window.animationRunning) {
+                window.kaishi();
+            }
+        }
+    });
+    
+    // 时间显示
+    function updateTime() {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('zh-CN', {
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        
+        const mobileTime = document.getElementById('mobileTime');
+        const clockTime = document.getElementById('clockTime');
+        
+        if (mobileTime) mobileTime.textContent = timeStr;
+        if (clockTime) clockTime.textContent = timeStr;
+    }
+    
+    updateTime();
+    setInterval(updateTime, 1000);
+    
+    // 吐司提示
+    function showToast(message) {
+        // 移除现有吐司
+        const oldToast = document.querySelector('.toast');
+        if (oldToast) oldToast.remove();
+        
+        // 创建新吐司
+        const toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        // 显示
+        setTimeout(() => toast.classList.add('show'), 10);
+        
+        // 3秒后隐藏
+        setTimeout(() => {
+            toast.classList.remove('show');
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 300);
+        }, 2000);
+    }
+    
+    // 触摸反馈
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(btn => {
+        btn.addEventListener('touchstart', function() {
+            this.style.opacity = '0.7';
+        });
+        
+        btn.addEventListener('touchend', function() {
+            this.style.opacity = '';
+        });
+    });
+    
+    // 初始化星空画布
+    function initMobileSpace() {
+        const canvas = document.getElementById('space');
+        if (!canvas) return;
+        
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        const stars = [];
+        const starCount = Math.min(200, Math.floor(window.innerWidth * window.innerHeight / 1000));
+        
+        for (let i = 0; i < starCount; i++) {
+            stars.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 1.5 + 0.5,
+                speed: Math.random() * 0.5 + 0.2,
+                opacity: Math.random() * 0.5 + 0.3
+            });
+        }
+        
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            stars.forEach(star => {
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+                ctx.fill();
+                
+                star.y += star.speed;
+                
+                if (star.y > canvas.height) {
+                    star.y = 0;
+                    star.x = Math.random() * canvas.width;
+                }
+            });
+            
+            if (!window.animationRunning) {
+                requestAnimationFrame(animate);
+            }
+        }
+        
+        if (!window.animationRunning) {
+            animate();
+        }
+    }
+    
+    // 初始化星空
+    initMobileSpace();
+    
+    // 窗口大小变化时重置
+    window.addEventListener('resize', function() {
+        const canvas = document.getElementById('space');
+        if (canvas) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+    });
+});
+</script>
+
+</body>
+</html>
