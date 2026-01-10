@@ -389,12 +389,59 @@
                 font-size: 12px;
             }
         }
+.reminder{
+    --reminder-width:80%;
+
+    color: rgba(255,255,255,0.6);
+    width: var(--reminder-width);
+    height: 30px;
+    background-color: rgba(0,0,0,0.6);
+    text-align: center;
+    position: absolute;
+    top: 60px;
+    left: calc((100% - var(--reminder-width)) / 2);
+    border-radius: 10px;
+    animation: rem 7s linear 1;
+    opacity: 0;
+    transform: scale(0);
+}
+
+@keyframes rem {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    14.3% { /* 1/7 ≈ 14.3% */
+        opacity: 1;
+        transform: scale(1);
+    }
+    85.7% { /* 6/7 ≈ 85.7% */
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+
     </style>
     <link rel="icon" href="image_CKG/c2.png" type="png">
-<title>AAA建材王总 - 移动端</title>
+<title>倒贴窗花 - 移动端</title>
 </head>
 
 <body id="body">
+
+
+
+<div class="reminder">
+    <h3>背景空白请耐心等待或重新加载</h3>
+</div>
+
+
+
+
 
 <!-- 固定在左上角的主题切换按钮 -->
 <div class="theme-toggle-fixed">
