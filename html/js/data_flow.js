@@ -116,6 +116,11 @@ class ParticleSystem {
                 this.userInputs = [];
                 
             } 
+            else if (trimmedText === "none") {
+                this.replaceAllParticles_rep("");
+                this.userInputs = [];
+                
+            } 
             else {
                 this.userInputs.push(trimmedText);
             }
