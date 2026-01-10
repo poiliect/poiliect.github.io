@@ -111,6 +111,11 @@ class ParticleSystem {
                 this.userInputs = [];
                 
             } 
+            else if (trimmedText === "哈基米") {
+                this.replaceAllParticles_rep("😺");
+                this.userInputs = [];
+                
+            } 
             else {
                 this.userInputs.push(trimmedText);
             }
