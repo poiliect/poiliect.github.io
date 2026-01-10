@@ -401,7 +401,7 @@
     <label>
         <input type="checkbox" id="themeToggle">
         <div class="theme-switch-fixed">
-            <i id="themeIcon">☀️</i>
+            <i id="themeIcon">🟡</i>
             <span id="themeLabel">日间模式</span>
         </div>
     </label>
@@ -486,6 +486,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const themeLabel = document.getElementById('themeLabel');
     const video = document.getElementById('bg-video_w');
     const body = document.getElementById('body');
+    const themeIcon = document.getElementById('themeIcon');
     
     // 发送功能
     sendBtn.addEventListener('click', function() {
@@ -525,7 +526,9 @@ document.addEventListener('DOMContentLoaded', function() {
             body.classList.add('night-mode');
             body.style.backgroundColor = '#000';
             if (video) video.style.opacity = '0';
+            themeIcon.textContent = "⚫";
             themeLabel.textContent = '夜间模式';
+            themeLabel.style.color = "white";
             showToast('已切换至夜间模式');
 
             
@@ -538,7 +541,9 @@ document.addEventListener('DOMContentLoaded', function() {
             body.classList.remove('night-mode');
             body.style.backgroundColor = '';
             if (video) video.style.opacity = '1';
+            themeIcon.textContent = "🟡";
             themeLabel.textContent = '日间模式';
+            themeLabel.style.color = "black";
             showToast('已切换至日间模式');
             
             // 停止星空动画
