@@ -405,23 +405,51 @@
     opacity: 0;
     transform: scale(0);
 }
+@font-face{
+    font-family: "类楷";
+    src: url("font/类楷.TTF") format('truetype');
+    font-style: italic; 
+}
+.font{
+    --font-width:280px;
+    --font-height:20px;
+    font-size: var(--font-height);
+    width: var(--font-width);
+    height: var(--font-height);
+    background: none;  
+    position: absolute;
+    left: calc((100% - var(--font-width)) / 2);
+    top: 5px; 
+    font-family: 类楷;
+    user-select: none;
+    z-index: -1;
+}
+
+.font span{
+    position: relative;
+    top: 0;
+}
 
 @keyframes rem {
     0% {
         opacity: 0;
         transform: scale(0);
+        z-index: -1;
     }
     14.3% { /* 1/7 ≈ 14.3% */
         opacity: 1;
         transform: scale(1);
+        z-index: 99;
     }
     85.7% { /* 6/7 ≈ 85.7% */
         opacity: 1;
         transform: scale(1);
+        z-index: 99;
     }
     100% {
         opacity: 0;
         transform: scale(0);
+        z-index: -1;
     }
 }
 
@@ -436,7 +464,9 @@
 
 
 <div class="reminder">
-    <h3>背景空白请耐心等待或重新加载</h3>
+    <div class="font">
+    <span>背景空白请耐心等待或重新加载</span>
+    </div>
 </div>
 
 
