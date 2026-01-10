@@ -3,6 +3,7 @@
     z-index: -1;
 }
 
+
 .input_box{
     --input_box-width:250px;
     --input_box-height:30px;
@@ -87,6 +88,10 @@
     color: white;
 }
 
+
+.user_input::placeholder{
+    color: rgba(255,255,255,0.5);
+}
 
 
 
