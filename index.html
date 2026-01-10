@@ -1,126 +1,210 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-	<link rel="stylesheet" href="css/cs.css">
-    <link rel="stylesheet" href="css/cs_book.css">
-    <link rel="stylesheet" href="css/input_user.css">
-    <link rel="stylesheet" href="css/data_flow.css">
-    <link rel="icon" href="image_CKG/c2.png" type="png">
-<title>AAA建材王总</title>
-	<style>
-	
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAA建材王总 - 选择访问方式</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: url('image_CKG/c2.png') no-repeat center;
+            background-size: contain;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+        
+        .device-selector {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .device-card {
+            flex: 1;
+            min-width: 280px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            border: 3px solid transparent;
+        }
+        
+        .device-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: #667eea;
+        }
+        
+        .device-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .mobile-icon { color: #4CAF50; }
+        .desktop-icon { color: #2196F3; }
+        
+        .device-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        
+        .device-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .auto-redirect {
+            margin-top: 30px;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        .countdown {
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+            
+            .device-selector {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
-
-<body id="body">
-
-
-
-<div class="input_box">
-    <input type="text" class="user_input" />
-    <input type="button" class="button confirm" value="确认" />
-</div>
-
-
-<div class="data_flow">
-    <div class="particle-container" id="particleContainer"></div>
-</div>
-
-
-
-
-<div class="bookshelf">
-    <div>
-        <div class="zyk z"></div>
-        <div class="zyk y"></div>
-        <div class="zyy zy"></div>
-        <div class="zyy yy"></div>
-    </div>
-    <div class="title_book">
-        <h1 style="text-align: center;">
-            <span class="sp_1">入站</span>
-            <span class="sp_2">规则</span>
-        </h1></div>
-    <div class="line_b"></div>
-    <div class="box_uu">
-        <ul>
-            <li>最终解释权归本站所有</li>
-            <li>用户应遵守当地法律法规</li>
-            <li>用户自行承担使用本站的风险</li>
-            <li>不可抗力导致服务中断不承担责任</li>
-            <li>商业转载需获得书面授权</li>
-            <li>用户发布内容不代表本站立场</li>
-            <li>本站保留随时修改内容的权利</li>
-            <li>不承担直接或间接损失责任</li>
-            <li>本站仅供交流学习</li>
-            <li>使用本站即表示接受本声明</li>
-        </ul>
-    </div>
-    <div class="line_b_a"><div class="book_clock" id="bookClock">
-        <div class="book_clock_time">
-        <span id="clockHor">HH</span>
-        <span id="clockSpr">点</span>
-        <span id="clockMin">mm</span>
+<body>
+    <div class="container">
+        <div class="logo"></div>
+        <h1>AAA建材王总</h1>
+        <p class="subtitle">请选择您的访问方式</p>
+        
+        <div class="device-selector">
+            <a href="__y.html" class="device-card" id="mobile-card">
+                <div class="device-icon mobile-icon">📱</div>
+                <h3>移动端访问</h3>
+                <p>为手机和平板设备优化，触控友好，自适应屏幕大小</p>
+            </a>
+            
+            <a href="__k.html" class="device-card" id="desktop-card">
+                <div class="device-icon desktop-icon">💻</div>
+                <h3>客户端访问</h3>
+                <p>为桌面设备优化，包含完整特效和交互功能</p>
+            </a>
         </div>
-        <div class="book_clock_time_sc">
-        <span id="clockSec">ss</span>
-        </div>
-    </div></div>
-    
-</div>
-
-
-
-    <div class="video-background_w">
-        <video autoplay muted loop id="bg-video_w">
-            <source src="image_CKG/【哲风壁纸】丁达尔-晨光.mp4" type="video/mp4">
-        </video>
+        
+        <p class="auto-redirect">
+            正在自动检测您的设备类型，<span id="countdown" class="countdown">10</span>秒后将为您自动跳转...
+        </p>
     </div>
 
-	<label class="toggle">
-	<input type="checkbox" onchange="kaishi()" class="toggle__input">
-	<div class="toggle__container">
-		<div class="toggle__clouds"></div>
-		<div class="toggle__stars">
-			
-<svg width="59.999999999999986" height="29.999999999999993" xmlns="http://www.w3.org/2000/svg">
- <g>
-  <title>Layer 1</title>
-  <path id="svg_5" d="m13.79699,14.15357l0.52755,0l0.16302,-0.50117l0.16302,0.50117l0.52755,0l-0.4268,0.30974l0.16303,0.50117l-0.4268,-0.30975l-0.4268,0.30975l0.16303,-0.50117l-0.4268,-0.30974z"  fill="#fff"/>
-  <path id="svg_6" d="m27.31854,7.10508l0.9609,0l0.29693,-0.91285l0.29693,0.91285l0.9609,0l-0.77739,0.56417l0.29694,0.91285l-0.77739,-0.56418l-0.77739,0.56418l0.29694,-0.91285l-0.77739,-0.56417l0.00002,0z"  fill="#fff"/>
-  <path id="svg_7" d="m30.1161,20.82109l0.52755,0l0.16302,-0.50117l0.16302,0.50117l0.52755,0l-0.4268,0.30974l0.16303,0.50117l-0.4268,-0.30975l-0.4268,0.30975l0.16303,-0.50117l-0.4268,-0.30974z"  fill="#fff"/>
-  <path id="svg_8" d="m7.98179,5.55897l0.03752,0l0.01159,-0.03565l0.01159,0.03565l0.03752,0l-0.03036,0.02203l0.0116,0.03565l-0.03036,-0.02203l-0.03036,0.02203l0.0116,-0.03565l-0.03036,-0.02203z"  fill="#fff"/>
- </g>
-
-</svg>
-
-		</div>
-		<div class="toggle__sun">
-			<div class="toggle__moon-mask">
-				<div class="boon b1"></div>
-				<div class="boon b2"></div>
-				<div class="boon b3"></div>
-			</div>
-		</div>
-	</div>
-	</label>
-
-<canvas id="space"></canvas>
-
-
-<script src="js/data_flow.js">
-</script>
-
-<script src="js/input_user.js">
-</script>
-<script src="js/js_clock.js">
-</script>
-<script src="js/js.js">    
-</script>
-
-
-
-
+    <script>
+        // 设备检测函数
+        function detectDevice() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const isMobile = /mobile|android|iphone|ipad|phone|tablet/i.test(userAgent);
+            return isMobile ? 'mobile' : 'desktop';
+        }
+        
+        // 设置高亮
+        function highlightCard(deviceType) {
+            if (deviceType === 'mobile') {
+                document.getElementById('mobile-card').style.borderColor = '#4CAF50';
+                document.getElementById('mobile-card').style.boxShadow = '0 15px 30px rgba(76, 175, 80, 0.3)';
+            } else {
+                document.getElementById('desktop-card').style.borderColor = '#2196F3';
+                document.getElementById('desktop-card').style.boxShadow = '0 15px 30px rgba(33, 150, 243, 0.3)';
+            }
+        }
+        
+        // 自动跳转
+        function redirectToDevicePage() {
+            const deviceType = detectDevice();
+            highlightCard(deviceType);
+            
+            const countdownElement = document.getElementById('countdown');
+            let countdown = 10;
+            
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    if (deviceType === 'mobile') {
+                        window.location.href = '__y.html';
+                    } else {
+                        window.location.href = '__k.html';
+                    }
+                }
+            }, 1000);
+        }
+        
+        // 立即跳转（如果用户手动选择）
+        document.getElementById('mobile-card').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '__y.html';
+        });
+        
+        document.getElementById('desktop-card').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.href = '__k.html';
+        });
+        
+        // 页面加载后开始倒计时
+        document.addEventListener('DOMContentLoaded', redirectToDevicePage);
+    </script>
 </body>
 </html>
