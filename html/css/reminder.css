@@ -16,7 +16,7 @@
 }
 @font-face{
     font-family: "类楷";
-    src: url("/html/font/类楷.TTF") format('truetype');
+    src: url("../font/类楷.TTF") format('truetype');
     font-style: italic; 
 }
 .font{
