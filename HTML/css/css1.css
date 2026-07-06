@@ -1,0 +1,28 @@
+body{
+    background-color: #000000;
+    user-select: none;
+}
+img{
+    position: absolute;
+    width: 15%;
+    top: 40%;
+    left: 42.5%;
+}
+
+p{  
+    color: #ffffff;
+    font-size: 200px;
+    animation: shadowRotate 2s linear infinite;
+}
+
+@keyframes shadowRotate {
+    0%   { text-shadow: blue 10px 0px 1px; }
+    12.5% { text-shadow: rgb(0, 238, 255) 7.07px 7.07px 1px; }
+    25%  { text-shadow: rgb(0, 255, 179) 0px 10px 1px; }
+    37.5% { text-shadow: rgb(187, 255, 0) -7.07px 7.07px 1px; }
+    50%  { text-shadow: rgb(255, 0, 0) -10px 0px 1px; }
+    62.5% { text-shadow: rgb(255, 0, 200) -7.07px -7.07px 1px; }
+    75%  { text-shadow: rgb(153, 0, 255) 0px -10px 1px; }
+    87.5% { text-shadow: rgb(76, 0, 255) 7.07px -7.07px 1px; }
+    100% { text-shadow: blue 10px 0px 1px; }
+}

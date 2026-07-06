@@ -1,0 +1,12 @@
+body{
+    background-color: black;
+    user-select: none;
+}
+img{
+    position: absolute;
+    left:17.5%;
+    top: 30%;
+}
+p{
+    color: white;
+}
