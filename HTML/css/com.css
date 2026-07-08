@@ -1,0 +1,23 @@
+body{
+    background: linear-gradient(90deg,black,rgb(19, 20, 66),black);
+    user-select: none;
+}
+
+.cs{
+    width: 100px;
+    height: 100px;
+    background-color: white;
+    opacity: 0;
+    transition: all 1s;
+}
+
+.ig1{
+    --widt:100px;
+    width: var(--widt);
+    position: relative;
+    left: calc(50% - (var(--widt) * 0.5));
+}
+.ig1:hover~.cs{
+    transform: translateY(-100px);
+    opacity: 1;
+}
